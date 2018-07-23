@@ -124,7 +124,7 @@ if rank==0:
         master_recv_package = comm.recv(source=MPI.ANY_SOURCE, tag=11, status=status)
         FITNESS_REC.append(master_recv_package)
 
-        if  master_recv_package[1] in range(0, np.sort(np.array(FITNESS_REC)[:,1])[10]):         #Modify pheromones based on ants' paths in a best fit network
+        if  master_recv_package[1] < range(0, np.sort(np.array(FITNESS_REC)[:,1])[10]):         #Modify pheromones based on ants' paths in a best fit network
             if max_fit[1]>master_recv_package[1]:
                 max_fit = master_recv_package[0:2]
             modify_pheromones(COLONYs[max_fit[0]-1][1].mesh_1, COLONYs[max_fit[0]-1][1].mesh_2, 'G')
