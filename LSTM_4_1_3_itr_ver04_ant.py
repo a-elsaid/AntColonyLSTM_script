@@ -81,12 +81,9 @@ class art_i(object):
             non_sequences = [w, u, t, v]
         )
 
-        out_bb = theano.tensor.stack([result[1][0][0], result[1][1][0], result[1][2][0], result[1][3][0],
-                                     result[1][4][0], result[1][5][0], result[1][6][0], result[1][7][0],
-                                     result[1][8][0], result[1][9][0], 1])
-        cc2 = theano.tensor.stack([result[3][0][0], result[3][1][0], result[3][2][0], result[3][3][0],
-                                     result[3][4][0], result[3][5][0], result[3][6][0], result[3][7][0],
-                                     result[3][8][0], result[3][9][0]])
+        out_bb = theano.tensor.reshape(result[1], (1,-1))[0]
+        out_bb = theano.tensor.concatenate([out_bb,[1]])
+        cc2 = theano.tensor.reshape(result[3], (1,-1))[0]
 
         m = theano.tensor.nnet.sigmoid(theano.tensor.dot(p, out_bb.T) + theano.tensor.dot(q, out_c.T))
         i3 = m[0:1]
