@@ -172,16 +172,9 @@ class art_i(object):
         folds_errors = list()
         data = np.load('flt_data_mod.npy')
         data_groups = np.array([data[:6], data[6:12], data[12:18], data[18:24], data[24:30], data[30:36], data[36:42], data[42:47], data[47:52], data[52:]])
-        for fold in [[0, 1, 2, 3, 4, 5, 6, 7, 8 ,9],
-                     [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-                     [2, 3, 4, 5, 6, 7, 8, 9, 0, 1],
-                     [3, 4, 5, 6, 7, 8, 9, 0, 1, 2],
-                     [4, 5, 6, 7, 8, 9, 0, 1, 2, 3],
-                     [5, 6, 7, 8, 9, 0, 1, 2, 3, 4],
-                     [6, 7, 8, 9, 0, 1, 2, 3, 4, 5],
-                     [7, 8, 9, 0, 1, 2, 3, 4, 5, 6],
-                     [8, 9, 0, 1, 2, 3, 4, 5, 6, 7],
-                     [9, 0, 1, 2, 3, 4, 5, 6, 7, 8]]:
+        FOLD = np.arange(10)
+        for i in range (10):
+            fold = [(y+i)%10 for y in FOLD]
             dum = []
             for q in [0, 1, 2, 3, 4, 5, 6, 7, 8]:
                dum = np.append(dum, data_groups[fold[q]])
